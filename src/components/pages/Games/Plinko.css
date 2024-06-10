@@ -1,0 +1,9 @@
+.plinko-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background-color: var(--color-game-page-background);
+  color: var(--color-text);
+  height: 100%;
+}

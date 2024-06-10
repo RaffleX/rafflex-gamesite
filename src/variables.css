@@ -1,0 +1,34 @@
+:root {
+  --color-background: #11131b;
+  --color-navbar-background: #11131b;
+  --color-text: #ffffff;
+  --color-text-invert: #92a6c3;
+  --color-primary: #d3d3d3;
+  --color-secondary: #3f3f3f;
+  --color-active-background: #fae259;
+  --color-active-background-text: #d6d6d6;
+  --color-inactive-text: #202020;
+  --color-panel-background: #ffffff;
+  --color-win-background: #d4edda;
+  --color-win-text: #155724;
+  --color-loss-background: #f8d7da;
+  --color-loss-text: #721c24;
+
+  --color-game-page-background: #161822;
+  --color-game-button: #292d3f;
+  --color-game-button-selected: #292d3f;
+  --color-game-button-selected-border: #fff01f;
+  --color-game-button-selected-text: #fff01f;
+  --color-game-button-shadow: #fff01f;
+  --color-game-button-borders: #fff01f;
+  --color-game-button-text: #fff01f;
+
+  --color-sidebar-link: #11131b;
+  --color-sidebar-link-text: #ffffff;
+  --color-sidebar-link-active: #292d3f;
+  --color-sidebar-link-active-text: #ffffff;
+
+  --color-credits-and-tokens-background: #131418;
+  --color-credits-and-tokens-border: #262830;
+  --color-credits-text: #e7df6ec4;
+}
