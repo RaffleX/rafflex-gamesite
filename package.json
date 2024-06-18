@@ -1,4 +1,5 @@
 {
+  "homepage": "https://RaffleX.github.io/rafflex-gamesite",
   "name": "rafflex-gamesite",
   "version": "0.1.0",
   "private": true,
@@ -23,6 +24,8 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
@@ -42,6 +45,7 @@
     "assert": "^2.1.0",
     "buffer": "^6.0.3",
     "crypto-browserify": "^3.12.0",
+    "gh-pages": "^6.1.1",
     "https-browserify": "^1.0.0",
     "os-browserify": "^0.3.0",
     "process": "^0.11.10",
