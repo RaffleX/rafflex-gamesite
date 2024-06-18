@@ -1,8 +1,12 @@
 // src/pages/CoinFlip.js
 import React, { useState, useContext, useEffect } from "react";
 import "./CoinFlip.css";
+import toast, { Toaster } from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoins, faBolt } from "@fortawesome/free-solid-svg-icons";
+import { ethers } from "ethers";
+import contract1 from "../../contracts/Contract1.json";
+import contract2 from "../../contracts/Contract2.json";
 // import ConnectionContext from "../ConnectionContext";
 
 const CoinFlip = () => {
@@ -10,12 +14,29 @@ const CoinFlip = () => {
   const isConnected = true;
   const [selection, setSelection] = useState(null);
   const [result, setResult] = useState(null);
-  const [credits, setCredits] = useState(100); // Example starting credits
   const [bet, setBet] = useState(1); // Default bet amount
   const [results, setResults] = useState([]);
   const [isFlipping, setIsFlipping] = useState(false);
   const [coinFace, setCoinFace] = useState("heads");
   const [showModal, setShowModal] = useState(false);
+  const [walletAddress, setWalletAddress] = useState(null);
+
+  useEffect(() => {
+    // Connect to the wallet and get the address
+    async function getAddress() {
+      if (window.ethereum) {
+        try {
+          const accounts = await window.ethereum.request({
+            method: "eth_requestAccounts",
+          });
+          setWalletAddress(accounts[0]);
+        } catch (error) {
+          console.error("Error connecting to wallet:", error);
+        }
+      }
+    }
+    getAddress();
+  }, []);
 
   const handleSelection = (option) => {
     setSelection(option);
@@ -25,38 +46,95 @@ const CoinFlip = () => {
     setBet(amount);
   };
 
-  const handleFlip = () => {
-    console.log("handleFlip Called")
-    if (!selection || credits < bet) return;
+  const handleFlip = async () => {
+    console.log("handleFlip Called");
+
+    if (!selection || bet === 0) {
+      toast.error("Invalid Selection");
+      return;
+    }
 
     setIsFlipping(true);
+    toast("Flipping!!!!!!", {
+      icon: "👏",
+    });
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(
+        contract2.address,
+        contract2.abi,
+        signer
+      );
 
-    setTimeout(() => {
-      const outcome = Math.random() < 0.5 ? "heads" : "tails";
-      setResult(outcome);
-      setCoinFace(outcome);
-      setIsFlipping(false);
+      const userSelection = selection === "heads" ? 0 : 1;
+      const tx = await contract.startFlip(userSelection);
+      const receipt = await tx.wait();
 
-      const newResult = {
-        bet,
-        selection,
-        outcome,
-        win: outcome === selection,
-        timestamp: new Date().toLocaleTimeString(),
+      const flipStartedEvent = receipt.events.find(
+        (event) => event.event === "FlipStarted"
+      );
+      const sessionId = flipStartedEvent.args[1].toString();
+      console.log(`Session Id => ${sessionId}`);
+      toast(`Session Id : ${sessionId}`, {
+        icon: "👏",
+      });
+      let pollSessionDetailsCount = 0;
+      toast.loading(`Getting VRF Data from provider....`);
+      const pollSessionDetails = async () => {
+        pollSessionDetailsCount++;
+        console.log(`pollSessionDetailsCount => ${pollSessionDetailsCount}`);
+        const sessionDetails = await contract.sessionDetails(sessionId);
+        if (sessionDetails.settled) {
+          const outcome =
+            sessionDetails.winningChoice === 0 ? "heads" : "tails";
+          console.log(`Outcome =>${outcome}`);
+          toast.dismiss();
+          if (selection === outcome) {
+            toast(`Congratulations You Won : It's ${outcome}`, {
+              icon: "🤩",
+              duration: 10000,
+            });
+          } else {
+            toast(`Better Luck Next Time : It's ${outcome}`, {
+              icon: "🥺",
+              duration: 10000,
+            });
+          }
+
+          setResult(outcome);
+          setCoinFace(outcome);
+          setIsFlipping(false);
+
+          const newResult = {
+            bet,
+            selection,
+            outcome,
+            win: outcome === selection,
+            timestamp: new Date().toLocaleTimeString(),
+          };
+
+          setResults([newResult, ...results]);
+          return 200;
+        } else {
+          setTimeout(pollSessionDetails, 2000);
+        }
       };
 
-      setResults([newResult, ...results]);
+      // toast.promise(pollSessionDetails, {
+      //   loading: `Getting VRF Data from provider....`,
+      //   success: "Everything went smoothly.",
+      //   error: "Uh oh, there was an error!",
+      // });
+      // const result =
+      pollSessionDetails();
+    } catch (error) {
+      console.error("Error during coin flip:", error);
+      toast.error(`Error : ${error.code}`);
 
-      if (newResult.win) {
-        setCredits(credits + bet);
-      } else {
-        setCredits(credits - bet);
-      }
-
-      setShowModal(true); // Show the modal after the flip
-    }, 1000);
+      setIsFlipping(false);
+    }
   };
-
   const handleCloseModal = () => {
     setShowModal(false);
   };
@@ -71,7 +149,6 @@ const CoinFlip = () => {
         {/* {result && <p className="result">{result}</p>} */}
         {isConnected ? (
           <>
-            <p className="credits">Credits: {credits}</p>
             <hr className="hr" />
             <p className="bet-amount-title">Bet Amount</p>
             <div className="bet-options">
@@ -118,7 +195,7 @@ const CoinFlip = () => {
         )}
       </div>
 
-      {/* <div className="results-section">
+      <div className="results-section">
         <h2>Game Results</h2>
         <ul>
           {results.map((res, index) => (
@@ -128,7 +205,7 @@ const CoinFlip = () => {
             </li>
           ))}
         </ul>
-      </div> */}
+      </div>
       {/* Modal */}
       {showModal && (
         <div className={`modal ${showModal ? "show" : ""}`}>
