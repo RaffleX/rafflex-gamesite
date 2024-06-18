@@ -1,0 +1,465 @@
+{
+  "address": "0x0F5a4Be85018F378035673354d527673Dc25f46a",
+  "abi": [
+    { "inputs": [], "stateMutability": "nonpayable", "type": "constructor" },
+    {
+      "inputs": [
+        { "internalType": "address", "name": "target", "type": "address" }
+      ],
+      "name": "AddressEmptyCode",
+      "type": "error"
+    },
+    { "inputs": [], "name": "EnforcedPause", "type": "error" },
+    { "inputs": [], "name": "ExpectedPause", "type": "error" },
+    { "inputs": [], "name": "FailedCall", "type": "error" },
+    { "inputs": [], "name": "InactiveGame", "type": "error" },
+    { "inputs": [], "name": "InactivePlan", "type": "error" },
+    {
+      "inputs": [
+        { "internalType": "uint256", "name": "balance", "type": "uint256" },
+        { "internalType": "uint256", "name": "needed", "type": "uint256" }
+      ],
+      "name": "InsufficientBalance",
+      "type": "error"
+    },
+    { "inputs": [], "name": "InvalidInitialization", "type": "error" },
+    {
+      "inputs": [
+        { "internalType": "string", "name": "reason", "type": "string" }
+      ],
+      "name": "InvalidParam",
+      "type": "error"
+    },
+    { "inputs": [], "name": "NotAuthorized", "type": "error" },
+    { "inputs": [], "name": "NotEnoughCredits", "type": "error" },
+    { "inputs": [], "name": "NotInitializing", "type": "error" },
+    {
+      "inputs": [
+        { "internalType": "address", "name": "owner", "type": "address" }
+      ],
+      "name": "OwnableInvalidOwner",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        { "internalType": "address", "name": "account", "type": "address" }
+      ],
+      "name": "OwnableUnauthorizedAccount",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        { "internalType": "address", "name": "token", "type": "address" }
+      ],
+      "name": "SafeERC20FailedOperation",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "planId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "noOfTokens",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "timeStamp",
+          "type": "uint256"
+        }
+      ],
+      "name": "CreditsPurchased",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "gameAddress",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "creditsUsed",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "timeStamp",
+          "type": "uint256"
+        }
+      ],
+      "name": "GameStarted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint64",
+          "name": "version",
+          "type": "uint64"
+        }
+      ],
+      "name": "Initialized",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "Paused",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "gameAddress",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "creditsAdded",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "timeStamp",
+          "type": "uint256"
+        }
+      ],
+      "name": "RewardedUser",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "Unpaused",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "credsRequired",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "gameAddress",
+              "type": "address"
+            },
+            { "internalType": "bool", "name": "active", "type": "bool" }
+          ],
+          "internalType": "struct RaffleLauncher.Game[]",
+          "name": "_games",
+          "type": "tuple[]"
+        }
+      ],
+      "name": "addGames",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "tokenAddress",
+              "type": "address"
+            },
+            { "internalType": "uint8", "name": "decimals", "type": "uint8" },
+            { "internalType": "bool", "name": "active", "type": "bool" },
+            {
+              "internalType": "uint256",
+              "name": "multiplier",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct RaffleLauncher.Plan[]",
+          "name": "_plans",
+          "type": "tuple[]"
+        }
+      ],
+      "name": "addPlans",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "internalType": "uint256", "name": "_planId", "type": "uint256" },
+        { "internalType": "uint256", "name": "_noOfTokens", "type": "uint256" }
+      ],
+      "name": "depositTokens",
+      "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "internalType": "uint256", "name": "gameId", "type": "uint256" }
+      ],
+      "name": "game",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "credsRequired",
+          "type": "uint256"
+        },
+        { "internalType": "address", "name": "gameAddress", "type": "address" },
+        { "internalType": "bool", "name": "active", "type": "bool" }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "gameId",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "tokenAddress",
+              "type": "address"
+            },
+            { "internalType": "uint8", "name": "decimals", "type": "uint8" },
+            { "internalType": "bool", "name": "active", "type": "bool" },
+            {
+              "internalType": "uint256",
+              "name": "multiplier",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct RaffleLauncher.Plan[]",
+          "name": "_plans",
+          "type": "tuple[]"
+        },
+        { "internalType": "address", "name": "_owner", "type": "address" },
+        {
+          "internalType": "address",
+          "name": "_raffleWallet",
+          "type": "address"
+        }
+      ],
+      "name": "initialize",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256[]",
+          "name": "_gameIds",
+          "type": "uint256[]"
+        },
+        { "internalType": "bool[]", "name": "_status", "type": "bool[]" }
+      ],
+      "name": "modifyGameStatus",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256[]",
+          "name": "_planIds",
+          "type": "uint256[]"
+        },
+        { "internalType": "bool[]", "name": "_status", "type": "bool[]" }
+      ],
+      "name": "modifyPlanStatus",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "pause",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "paused",
+      "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "internalType": "uint256", "name": "planId", "type": "uint256" }
+      ],
+      "name": "plan",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "tokenAddress",
+          "type": "address"
+        },
+        { "internalType": "uint8", "name": "decimals", "type": "uint8" },
+        { "internalType": "bool", "name": "active", "type": "bool" },
+        { "internalType": "uint256", "name": "multiplier", "type": "uint256" }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "planId",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "raffleWallet",
+      "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "internalType": "uint256", "name": "_gameId", "type": "uint256" },
+        { "internalType": "address", "name": "_user", "type": "address" },
+        { "internalType": "uint256", "name": "_creds", "type": "uint256" }
+      ],
+      "name": "rewardUser",
+      "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "internalType": "uint256", "name": "_gameId", "type": "uint256" },
+        { "internalType": "address", "name": "_user", "type": "address" }
+      ],
+      "name": "startGame",
+      "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "internalType": "address", "name": "newOwner", "type": "address" }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "unpause",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "internalType": "address", "name": "user", "type": "address" }
+      ],
+      "name": "userCreds",
+      "outputs": [
+        { "internalType": "uint256", "name": "credits", "type": "uint256" }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]
+}

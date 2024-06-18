@@ -6,27 +6,16 @@ import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoins, faBolt } from "@fortawesome/free-solid-svg-icons";
 
-const Navbar = () => {
-  const address = useAddress();
-  console.log(address);
-  const connectWallet = () => {
-    console.log("connectWallet");
-    // notify();
-    toast("Starting Connection!", {
-      icon: "👏",
-    });
-  };
-
+const Navbar = ({ credits }) => {
   return (
     <nav className="navbar flex justify-between items-center">
       <img src={logo} alt="Logo" className="logo" />
-      {/* <button className="connect-wallet-button" onClick={connectWallet}>
-        Connect Wallet
-      </button> */}
       <div className="nav-credits-and-tokens">
         <div className="nav-credits">
           <FontAwesomeIcon icon={faBolt} />
-          <span className="nav-credits-amount">99</span>
+          <span className="nav-credits-amount" id="nav-credits-amount">
+            Credits: {credits}
+          </span>
         </div>
       </div>
 

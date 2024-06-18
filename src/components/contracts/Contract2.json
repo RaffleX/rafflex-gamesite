@@ -1,0 +1,283 @@
+{
+  "address": "0xB3710932F6FEBD7dc93f59d8f87Bdb0c7fa7c36a",
+  "abi": [
+    { "inputs": [], "stateMutability": "nonpayable", "type": "constructor" },
+    { "inputs": [], "name": "AlreadySettled", "type": "error" },
+    { "inputs": [], "name": "EnforcedPause", "type": "error" },
+    { "inputs": [], "name": "ExpectedPause", "type": "error" },
+    { "inputs": [], "name": "InvalidChoice", "type": "error" },
+    { "inputs": [], "name": "InvalidInitialization", "type": "error" },
+    {
+      "inputs": [
+        { "internalType": "string", "name": "reason", "type": "string" }
+      ],
+      "name": "InvalidParam",
+      "type": "error"
+    },
+    { "inputs": [], "name": "NotInitializing", "type": "error" },
+    {
+      "inputs": [
+        { "internalType": "address", "name": "owner", "type": "address" }
+      ],
+      "name": "OwnableInvalidOwner",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        { "internalType": "address", "name": "account", "type": "address" }
+      ],
+      "name": "OwnableUnauthorizedAccount",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "sessionId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint8",
+          "name": "pickedChoice",
+          "type": "uint8"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "timeStamp",
+          "type": "uint256"
+        }
+      ],
+      "name": "FlipStarted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint64",
+          "name": "version",
+          "type": "uint64"
+        }
+      ],
+      "name": "Initialized",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "Paused",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "sessionId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "outcome",
+          "type": "bool"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "timeStamp",
+          "type": "uint256"
+        }
+      ],
+      "name": "SessionSettled",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "Unpaused",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "gameId",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "internalType": "address", "name": "_launcher", "type": "address" },
+        { "internalType": "address", "name": "_owner", "type": "address" },
+        { "internalType": "uint256", "name": "_gameId", "type": "uint256" }
+      ],
+      "name": "initialize",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "launcher",
+      "outputs": [
+        {
+          "internalType": "contract IRaffleLauncher",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "pause",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "paused",
+      "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "internalType": "uint256", "name": "sessionId", "type": "uint256" }
+      ],
+      "name": "sessionDetails",
+      "outputs": [
+        { "internalType": "uint8", "name": "pickedChoice", "type": "uint8" },
+        { "internalType": "uint8", "name": "winningChoice", "type": "uint8" },
+        { "internalType": "bool", "name": "settled", "type": "bool" },
+        { "internalType": "address", "name": "user", "type": "address" },
+        { "internalType": "uint256", "name": "randomNumber", "type": "uint256" }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "sessionId",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "internalType": "uint256", "name": "_sessionId", "type": "uint256" },
+        {
+          "internalType": "uint256",
+          "name": "_randomNumber",
+          "type": "uint256"
+        }
+      ],
+      "name": "setRandom",
+      "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "internalType": "uint8", "name": "_pickedChoice", "type": "uint8" }
+      ],
+      "name": "startFlip",
+      "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "internalType": "address", "name": "newOwner", "type": "address" }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "unpause",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "internalType": "address", "name": "user", "type": "address" },
+        { "internalType": "uint256", "name": "", "type": "uint256" }
+      ],
+      "name": "userSessions",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]
+}

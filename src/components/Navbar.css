@@ -41,7 +41,7 @@
 
 .nav-credits {
   color: var(--color-credits-text);
-  font-size: 29px;
+  font-size: 20px;
   display: flex;
   justify-content: space-around;
   align-items: center;
